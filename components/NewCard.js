@@ -31,7 +31,7 @@ class NewDeck extends Component {
                 <TextInput
                     style={{height: 40, borderColor: 'gray', borderWidth: 1}}
                     onChangeText={(question) => this.setState({question})}
-                    value={this.state.question}
+                    value={this.state.currentQuestion}
                 />
 
                 <TextInput
@@ -41,7 +41,7 @@ class NewDeck extends Component {
                 />
                 <SubmitBtn
                     onPress={() => {
-                        addCardToDeck(entryId, {question: this.state.question, answer: this.state.answer})
+                        addCardToDeck(entryId, {question: this.state.currentQuestion, answer: this.state.answer})
                     }}
                 />
             </View>

@@ -7,6 +7,7 @@ import DeckListView from './components/DeckListView'
 import NewDeck from './components/NewDeck'
 import NewCard from './components/NewCard'
 import DeckView from './components/DeckView'
+import QuizView from './components/QuizView'
 import {Provider} from 'react-redux'
 import reducer from './reducers'
 import {white, purple} from './utils/colors'
@@ -73,6 +74,16 @@ const MainNavigator = StackNavigator({
     },
     NewCard: {
         screen: NewCard,
+        navigationOptions: {
+            headerTintColor: 'white',
+            headerStyle: {
+                backgroundColor: 'purple'
+            }
+        }
+    },
+    QuizView: {
+        screen: QuizView,
+        title: 'Quiz',
         navigationOptions: {
             headerTintColor: 'white',
             headerStyle: {

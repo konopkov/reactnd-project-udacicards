@@ -30,11 +30,15 @@ export const saveDeckTitle = (title) => {
 // addCardToDeck: take in two arguments, title and card, and will add the card to the list of questions for the deck
 // with the associated title.
 export const addCardToDeck = (title, card) => {
-    return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
-        [title]: {
-            title: title,
-            questions: [card]
-        }
-    }))
+    getDeck(title).then((deck) => {
+        return AsyncStorage.mergeItem(
+            DECKS_STORAGE_KEY,
+            JSON.stringify({
+                [deck.title]: {
+                    questions: deck.questions.concat(card)
+                }
+            })
+        )
+    })
 
 };

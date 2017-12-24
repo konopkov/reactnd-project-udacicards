@@ -15,7 +15,6 @@ class DeckListView extends Component {
         text: ''
     };
 
-
     componentDidMount() {
         const {dispatch} = this.props;
         getDecks()
