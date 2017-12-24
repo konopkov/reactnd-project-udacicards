@@ -3,9 +3,10 @@ import {StackNavigator, TabNavigator} from 'react-navigation'
 import {View, Platform, StatusBar} from 'react-native'
 import {Constants} from 'expo'
 import {createStore} from 'redux'
-import Decks from './components/Decks'
+import DeckListView from './components/DeckListView'
 import NewDeck from './components/NewDeck'
-import Deck from './components/Deck'
+import NewCard from './components/NewCard'
+import DeckView from './components/DeckView'
 import {Provider} from 'react-redux'
 import reducer from './reducers'
 import {white, purple} from './utils/colors'
@@ -23,7 +24,7 @@ const UdaciStatusBar = ({backgroundColor, ...props}) => {
 
 const Tabs = TabNavigator({
     History: {
-        screen: Decks,
+        screen: DeckListView,
         navigationOptions: {
             tabBarLabel: 'Decks',
             tabBarIcon: ({tintColor}) => <Entypo name='archive' size={30} color={tintColor}/>
@@ -61,8 +62,17 @@ const MainNavigator = StackNavigator({
     Decks: {
         screen: Tabs
     },
-    DeckDetail: {
-        screen: Deck,
+    DeckView: {
+        screen: DeckView,
+        navigationOptions: {
+            headerTintColor: 'white',
+            headerStyle: {
+                backgroundColor: 'purple'
+            }
+        }
+    },
+    NewCard: {
+        screen: NewCard,
         navigationOptions: {
             headerTintColor: 'white',
             headerStyle: {

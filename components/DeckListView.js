@@ -1,13 +1,14 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {View, FlatList} from 'react-native'
+import {View, FlatList, TouchableOpacity} from 'react-native'
 import {receiveDecks} from '../actions/index'
 import {getDecks} from '../utils/storage'
 import {AppLoading} from 'expo'
 import Deck from './Deck'
+import DeckView from './DeckView'
 
 
-class Decks extends Component {
+class DeckListView extends Component {
 
     state = {
         ready: false,
@@ -25,7 +26,6 @@ class Decks extends Component {
 
     }
 
-
     render() {
         const {decks} = this.props;
         const {ready} = this.state;
@@ -39,7 +39,15 @@ class Decks extends Component {
             <View>
                 {decks && <FlatList
                     data={Object.keys(decks)}
-                    renderItem={({item}) => <Deck title={decks[item].title} cardsNo={decks[item].questions.length}/>}
+                    renderItem={
+                        ({item}) =>
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate(
+                                'DeckView',
+                                {entryId: item}
+                            )}>
+                                <Deck title={decks[item].title} cardsNo={decks[item].questions.length}/>
+                            </TouchableOpacity>
+                    }
                     keyExtractor={(item, index) => index}
                 />}
             </View>
@@ -55,4 +63,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps)(Decks)
+export default connect(mapStateToProps)(DeckListView)
