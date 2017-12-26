@@ -15,7 +15,7 @@ class Deck extends Component {
                     {title}
                 </Text>
                 <Text style={styles.numberOfCards}>
-                    {cardsNo} cards
+                    {cardsNo} {cardsNo === 1 ? 'card' : 'cards'}
                 </Text>
             </View>
 
