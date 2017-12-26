@@ -28,6 +28,7 @@ class NewDeck extends Component {
         const card = {question, answer};
         const {dispatch} = this.props;
         const {deckId} = this.props.navigation.state.params;
+        const { navigation } = this.props;
 
         if (!question) {
             return Alert.alert('Blank entry', 'Please enter card question.')
@@ -44,7 +45,7 @@ class NewDeck extends Component {
             answer: ''
         });
 
-        Alert.alert('Success', 'Card added!')
+        navigation.goBack()
     };
 
     render() {
