@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native'
-import {purple, white} from '../utils/colors'
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {black, green, white, red, gray} from '../utils/colors'
 
 
 class QuizView extends Component {
@@ -38,7 +38,6 @@ class QuizView extends Component {
         )
     };
 
-
     render() {
         const {decks} = this.props;
         const {currentQuestion, isQuestionDisplayed, isScoreDisplayed, correctCount} = this.state;
@@ -49,60 +48,63 @@ class QuizView extends Component {
 
             <View>
                 {!isScoreDisplayed && <View>
-                    <Text>{currentQuestion + 1}/{decks[deckId].questions.length}</Text>
-                    <Text>
-                        {isQuestionDisplayed
-                            ? decks[deckId].questions[currentQuestion].question
-                            : decks[deckId].questions[currentQuestion].answer
-                        }
+                    <Text style={styles.progressText}>
+                        {currentQuestion + 1}/{decks[deckId].questions.length}
                     </Text>
-                    <TouchableOpacity
-                        style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
-                        onPress={() => this.flipCard()}
-                    >
-                        <Text style={[styles.submitBtnText]}>
+                    <View style={styles.card}>
+                        <Text style={styles.cardText}>
                             {isQuestionDisplayed
-                                ? 'Answer'
-                                : 'Question'
+                                ? decks[deckId].questions[currentQuestion].question
+                                : decks[deckId].questions[currentQuestion].answer
                             }
                         </Text>
-                    </TouchableOpacity>
+                        <TouchableOpacity
+                            style={styles.flipBtn}
+                            onPress={() => this.flipCard()}
+                        >
+                            <Text style={styles.flipBtnText}>
+                                {isQuestionDisplayed
+                                    ? 'Answer'
+                                    : 'Question'
+                                }
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
                     <TouchableOpacity
-                        style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
+                        style={styles.correctBtn}
                         onPress={() => this.nextQuestion(true)}
                     >
-                        <Text style={[styles.submitBtnText]}>Correct</Text>
+                        <Text style={styles.correctBtnText}>Correct</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
+                        style={styles.incorrectBtn}
                         onPress={() => this.nextQuestion(false)}
                     >
-                        <Text style={[styles.submitBtnText]}>Incorrect</Text>
+                        <Text style={styles.incorrectBtnText}>Incorrect</Text>
                     </TouchableOpacity>
 
                 </View>
                 }
                 {isScoreDisplayed && <View>
-                    <Text>
-                        You answered {correctCount} questions correctly
-                        from {decks[deckId].questions.length} questions
-                    </Text>
+                    <View style={styles.card}>
+                        <Text style={styles.cardText}>
+                            You answered {correctCount}/{decks[deckId].questions.length} questions correctly
+                        </Text>
+                    </View>
                     <TouchableOpacity
-                        style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
+                        style={styles.backBtn}
                         onPress={() => this.props.navigation.navigate(
                             'Decks'
                         )}>
-                        <Text style={[styles.submitBtnText]}>Back to decks</Text>
+                        <Text style={styles.backBtnText}>Back to decks</Text>
                     </TouchableOpacity>
                 </View>
 
                 }
             </View>
-
         )
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {
@@ -118,33 +120,84 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: white
     },
-    submitBtn: {
-        backgroundColor: purple,
+    card: {
+        backgroundColor: white,
+        borderRadius: 2,
+        padding: 20,
+        marginLeft: 10,
+        marginRight: 10,
+        marginTop: 17,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderColor: gray,
+        borderWidth: 1,
+        height: 200
+    },
+    progressText: {
+        color: black,
+        marginLeft: 10,
+        fontSize: 26,
+        textAlign: 'left',
+    },
+    cardText: {
+        color: black,
+        fontSize: 32,
+        textAlign: 'center',
+    },
+    flipBtn: {
+        padding: 10,
+        height: 45,
+        margin: 5,
+        marginLeft: 100,
+        marginRight: 100,
+    },
+    flipBtnText: {
+        color: red,
+        fontSize: 22,
+        textAlign: 'center'
+    },
+    correctBtn: {
+        backgroundColor: green,
         padding: 10,
         borderRadius: 7,
         height: 45,
-        marginLeft: 40,
-        marginRight: 40
+        margin: 5,
+        marginLeft: 100,
+        marginRight: 100
     },
-    androidSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        borderRadius: 2,
-        height: 45,
-        marginLeft: 30,
-        marginRight: 30,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    submitBtnText: {
+    correctBtnText: {
         color: white,
         fontSize: 22,
         textAlign: 'center'
     },
-    text: {
-        color: purple,
-        fontSize: 56,
-        textAlign: 'center',
+    incorrectBtn: {
+        backgroundColor: red,
+        padding: 10,
+        borderRadius: 7,
+        height: 45,
+        margin: 5,
+        marginLeft: 100,
+        marginRight: 100
+    },
+    incorrectBtnText: {
+        color: white,
+        fontSize: 22,
+        textAlign: 'center'
+    },
+    backBtn: {
+        backgroundColor: black,
+        padding: 10,
+        borderRadius: 7,
+        height: 45,
+        margin: 5,
+        marginLeft: 100,
+        marginRight: 100,
+        borderColor: black,
+        borderWidth: 2,
+    },
+    backBtnText: {
+        color: white,
+        fontSize: 22,
+        textAlign: 'center'
     },
 });
