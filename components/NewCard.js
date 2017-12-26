@@ -11,7 +11,7 @@ const SubmitBtn = ({onPress}) => {
         <TouchableOpacity
             style={styles.submitBtn}
             onPress={onPress}>
-            <Text style={[styles.submitBtnText]}>SUBMIT</Text>
+            <Text style={[styles.submitBtnText]}>Submit</Text>
         </TouchableOpacity>
     )
 };

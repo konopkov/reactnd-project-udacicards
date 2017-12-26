@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {View, Text, StyleSheet, Platform, TouchableOpacity} from 'react-native'
-import {purple, white} from '../utils/colors'
+import {black, purple, white} from '../utils/colors'
 import Deck from './Deck'
 
 
@@ -23,22 +23,24 @@ class DeckView extends Component {
             <View>
                 <Deck title={decks[deckId].title} cardsNo={decks[deckId].questions.length}/>
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
+                    style={styles.addBtn}
                     onPress={() => this.props.navigation.navigate(
                         'NewCard',
                         {deckId: deckId}
                     )}>
-                    <Text style={[styles.submitBtnText]}>Add Card</Text>
+                    <Text style={[styles.addBtnText]}>Add Card</Text>
                 </TouchableOpacity>
+
                 {decks[deckId].questions.length > 0 &&
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
+                    style={styles.quizBtn}
                     onPress={() => this.props.navigation.navigate(
                         'QuizView',
                         {deckId: deckId}
                     )}>
-                    <Text style={[styles.submitBtnText]}>Start Quiz</Text>
-                </TouchableOpacity>}
+                    <Text style={[styles.quizBtnText]}>Start Quiz</Text>
+                </TouchableOpacity>
+                }
             </View>
 
         )
@@ -60,32 +62,38 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: white
     },
-    submitBtn: {
-        backgroundColor: purple,
+    addBtn: {
+        backgroundColor: white,
         padding: 10,
         borderRadius: 7,
         height: 45,
-        marginLeft: 40,
-        marginRight: 40
+        margin: 5,
+        marginLeft: 100,
+        marginRight: 100,
+        borderColor: black,
+        borderWidth: 2,
     },
-    androidSubmitBtn: {
-        backgroundColor: purple,
+    addBtnText: {
+        color: black,
+        fontSize: 22,
+        textAlign: 'center'
+    },
+    quizBtn: {
+        backgroundColor: black,
         padding: 10,
-        borderRadius: 2,
+        borderRadius: 7,
         height: 45,
-        marginLeft: 30,
-        marginRight: 30,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        alignItems: 'center'
+        margin: 5,
+        marginLeft: 100,
+        marginRight: 100
     },
-    submitBtnText: {
+    quizBtnText: {
         color: white,
         fontSize: 22,
         textAlign: 'center'
     },
     text: {
-        color: purple,
+        color: black,
         fontSize: 56,
         textAlign: 'center',
     },
