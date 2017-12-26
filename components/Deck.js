@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {View, Text, StyleSheet, Platform} from 'react-native'
-import {white} from '../utils/colors'
+import {View, Text, StyleSheet} from 'react-native'
+import {black, gray, white} from '../utils/colors'
 
 
 class Deck extends Component {
@@ -12,11 +12,11 @@ class Deck extends Component {
         console.log(title);
 
         return (
-            <View style={styles.item}>
-                <Text>
+            <View style={styles.deck}>
+                <Text style={styles.deckTitle}>
                     {title}
                 </Text>
-                <Text>
+                <Text style={styles.numberOfCards}>
                     {cardsNo} cards
                 </Text>
             </View>
@@ -24,7 +24,6 @@ class Deck extends Component {
         )
     }
 }
-
 
 const mapStateToProps = (state) => {
     return {
@@ -35,21 +34,26 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(Deck)
 
 const styles = StyleSheet.create({
-    item: {
+    deck: {
         backgroundColor: white,
-        borderRadius: Platform.OS === 'ios' ? 16 : 2,
+        borderRadius: 2,
         padding: 20,
         marginLeft: 10,
         marginRight: 10,
         marginTop: 17,
         justifyContent: 'center',
-        shadowRadius: 3,
-        shadowOpacity: 0.8,
-        shadowColor: 'rgba(0,0,0,0.24)',
-        shadowOffset: {
-            width: 0,
-            height: 3
-        }
+        alignItems: 'center',
+        borderColor: gray,
+        borderWidth: 1
+    },
+    deckTitle: {
+        color: black,
+        fontSize: 26,
+        textAlign: 'center',
+    },
+    numberOfCards: {
+        color: gray,
+        fontSize: 18,
+        textAlign: 'center',
     }
-
 });
