@@ -24,7 +24,7 @@ class NewDeck extends Component {
 
     handleSubmit = () => {
         const {deckTitle} = this.state;
-        const {dispatch} = this.props;
+        const {dispatch, navigation} = this.props;
 
         if (!deckTitle) {
             return Alert.alert('Blank entry', 'Please enter deck title.')
@@ -36,6 +36,8 @@ class NewDeck extends Component {
         this.setState({
             deckTitle: ''
         });
+
+        navigation.navigate('DeckView', { deckId: deckTitle});
     };
 
     render() {
