@@ -44,6 +44,16 @@ class QuizView extends Component {
         )
     };
 
+    restartQuiz = () => {
+        this.setState(() => ({
+                currentQuestion: 0,
+                correctCount: 0,
+                isQuestionDisplayed: true,
+                isScoreDisplayed: false
+            })
+        )
+    };
+
     render() {
         const {decks} = this.props;
         const {currentQuestion, isQuestionDisplayed, isScoreDisplayed, correctCount} = this.state;
@@ -97,6 +107,12 @@ class QuizView extends Component {
                             You answered {correctCount}/{decks[deckId].questions.length} questions correctly
                         </Text>
                     </View>
+                    <TouchableOpacity
+                        style={styles.quizBtn}
+                        onPress={this.restartQuiz}
+                    >
+                        <Text style={styles.quizBtnText}>Restart Quiz</Text>
+                    </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.backBtn}
                         onPress={() => this.props.navigation.goBack()}
@@ -190,7 +206,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     backBtn: {
-        backgroundColor: black,
+        backgroundColor: white,
         padding: 10,
         borderRadius: 7,
         height: 45,
@@ -201,6 +217,20 @@ const styles = StyleSheet.create({
         borderWidth: 2,
     },
     backBtnText: {
+        color: black,
+        fontSize: 22,
+        textAlign: 'center'
+    },
+    quizBtn: {
+        backgroundColor: black,
+        padding: 10,
+        borderRadius: 7,
+        height: 45,
+        margin: 5,
+        marginLeft: 100,
+        marginRight: 100
+    },
+    quizBtnText: {
         color: white,
         fontSize: 22,
         textAlign: 'center'
