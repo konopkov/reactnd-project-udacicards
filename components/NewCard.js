@@ -43,6 +43,8 @@ class NewDeck extends Component {
             question: '',
             answer: ''
         });
+
+        Alert.alert('Success', 'Card added!')
     };
 
     render() {
