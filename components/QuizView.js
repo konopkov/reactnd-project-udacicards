@@ -70,8 +70,8 @@ class QuizView extends Component {
                         >
                             <Text style={styles.flipBtnText}>
                                 {isQuestionDisplayed
-                                    ? 'Answer'
-                                    : 'Question'
+                                    ? 'Show Answer'
+                                    : 'Show Question'
                                 }
                             </Text>
                         </TouchableOpacity>

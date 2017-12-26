@@ -28,7 +28,7 @@ class DeckView extends Component {
                         'NewCard',
                         {deckId: deckId}
                     )}>
-                    <Text style={[styles.addBtnText]}>Add Card</Text>
+                    <Text style={[styles.addBtnText]}>Create New Question</Text>
                 </TouchableOpacity>
 
                 {decks[deckId].questions.length > 0 &&
@@ -68,8 +68,8 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         height: 45,
         margin: 5,
-        marginLeft: 100,
-        marginRight: 100,
+        marginLeft: 50,
+        marginRight: 50,
         borderColor: black,
         borderWidth: 2,
     },
@@ -84,8 +84,8 @@ const styles = StyleSheet.create({
         borderRadius: 7,
         height: 45,
         margin: 5,
-        marginLeft: 100,
-        marginRight: 100
+        marginLeft: 50,
+        marginRight: 50
     },
     quizBtnText: {
         color: white,
