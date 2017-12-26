@@ -12,6 +12,7 @@ import {Provider} from 'react-redux'
 import reducer from './reducers'
 import {white, black} from './utils/colors'
 import {FontAwesome, Ionicons, Entypo} from '@expo/vector-icons'
+import {setLocalNotification} from './utils/helpers'
 
 
 const UdaciStatusBar = ({backgroundColor, ...props}) => {
@@ -96,7 +97,7 @@ const MainNavigator = StackNavigator({
 export default class App extends React.Component {
 
     componentDidMount() {
-        // setLocalNotification()
+        setLocalNotification()
     }
 
     render() {

@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import {black, green, white, red, gray} from '../utils/colors'
+import {clearLocalNotification, setLocalNotification} from '../utils/helpers'
 
 
 class QuizView extends Component {
@@ -14,6 +15,11 @@ class QuizView extends Component {
             isQuestionDisplayed: true,
             isScoreDisplayed: false
         }
+    }
+
+    componentDidMount() {
+        clearLocalNotification()
+            .then(setLocalNotification)
     }
 
     nextQuestion = (isCorrect = false) => {
