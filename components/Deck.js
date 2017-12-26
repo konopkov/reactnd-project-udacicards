@@ -9,8 +9,6 @@ class Deck extends Component {
     render() {
         const {title, cardsNo} = this.props;
 
-        console.log(title);
-
         return (
             <View style={styles.deck}>
                 <Text style={styles.deckTitle}>

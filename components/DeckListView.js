@@ -29,8 +29,6 @@ class DeckListView extends Component {
         const {decks} = this.props;
         const {ready} = this.state;
 
-        console.log(decks);
-
         if (ready === false) {
             return <AppLoading/>
         }
