@@ -8,34 +8,34 @@ import Deck from './Deck'
 class DeckView extends Component {
 
     static navigationOptions = ({navigation}) => {
-        const {entryId} = navigation.state.params;
+        const {deckId} = navigation.state.params;
 
         return {
-            title: entryId
+            title: deckId
         }
     };
 
     render() {
         const {decks} = this.props;
-        const {entryId} = this.props.navigation.state.params;
+        const {deckId} = this.props.navigation.state.params;
 
         return (
             <View>
-                <Deck title={decks[entryId].title} cardsNo={decks[entryId].questions.length}/>
+                <Deck title={decks[deckId].title} cardsNo={decks[deckId].questions.length}/>
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+                    style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
                     onPress={() => this.props.navigation.navigate(
                         'NewCard',
-                        {entryId: entryId}
+                        {deckId: deckId}
                     )}>
                     <Text style={[styles.submitBtnText]}>Add Card</Text>
                 </TouchableOpacity>
-                {decks[entryId].questions.length > 0 &&
+                {decks[deckId].questions.length > 0 &&
                 <TouchableOpacity
-                    style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+                    style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
                     onPress={() => this.props.navigation.navigate(
                         'QuizView',
-                        {entryId: entryId}
+                        {deckId: deckId}
                     )}>
                     <Text style={[styles.submitBtnText]}>Start Quiz</Text>
                 </TouchableOpacity>}
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: white
     },
-    iosSubmitBtn: {
+    submitBtn: {
         backgroundColor: purple,
         padding: 10,
         borderRadius: 7,

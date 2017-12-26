@@ -18,7 +18,7 @@ class QuizView extends Component {
 
     nextQuestion = (isCorrect = false) => {
         const {decks} = this.props;
-        const {entryId} = this.props.navigation.state.params;
+        const {deckId} = this.props.navigation.state.params;
 
         this.setState((state) => ({
                 currentQuestion: state.currentQuestion + 1,
@@ -26,7 +26,7 @@ class QuizView extends Component {
                 correctCount: isCorrect
                     ? state.correctCount + 1
                     : state.correctCount,
-                isScoreDisplayed: state.currentQuestion + 1 >= decks[entryId].questions.length
+                isScoreDisplayed: state.currentQuestion + 1 >= decks[deckId].questions.length
             })
         )
     };
@@ -42,22 +42,22 @@ class QuizView extends Component {
     render() {
         const {decks} = this.props;
         const {currentQuestion, isQuestionDisplayed, isScoreDisplayed, correctCount} = this.state;
-        const {entryId} = this.props.navigation.state.params;
+        const {deckId} = this.props.navigation.state.params;
 
         return (
 
 
             <View>
                 {!isScoreDisplayed && <View>
-                    <Text>{currentQuestion + 1}/{decks[entryId].questions.length}</Text>
+                    <Text>{currentQuestion + 1}/{decks[deckId].questions.length}</Text>
                     <Text>
                         {isQuestionDisplayed
-                            ? decks[entryId].questions[currentQuestion].question
-                            : decks[entryId].questions[currentQuestion].answer
+                            ? decks[deckId].questions[currentQuestion].question
+                            : decks[deckId].questions[currentQuestion].answer
                         }
                     </Text>
                     <TouchableOpacity
-                        style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+                        style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
                         onPress={() => this.flipCard()}
                     >
                         <Text style={[styles.submitBtnText]}>
@@ -68,13 +68,13 @@ class QuizView extends Component {
                         </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+                        style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
                         onPress={() => this.nextQuestion(true)}
                     >
                         <Text style={[styles.submitBtnText]}>Correct</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+                        style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
                         onPress={() => this.nextQuestion(false)}
                     >
                         <Text style={[styles.submitBtnText]}>Incorrect</Text>
@@ -85,10 +85,10 @@ class QuizView extends Component {
                 {isScoreDisplayed && <View>
                     <Text>
                         You answered {correctCount} questions correctly
-                        from {decks[entryId].questions.length} questions
+                        from {decks[deckId].questions.length} questions
                     </Text>
                     <TouchableOpacity
-                        style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+                        style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
                         onPress={() => this.props.navigation.navigate(
                             'Decks'
                         )}>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: white
     },
-    iosSubmitBtn: {
+    submitBtn: {
         backgroundColor: purple,
         padding: 10,
         borderRadius: 7,

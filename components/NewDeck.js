@@ -8,7 +8,7 @@ import {saveDeckTitle} from '../utils/storage'
 const SubmitBtn = ({onPress}) => {
     return (
         <TouchableOpacity
-            style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+            style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
             onPress={onPress}>
             <Text style={[styles.submitBtnText]}>SUBMIT</Text>
         </TouchableOpacity>
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
         padding: 20,
         backgroundColor: white
     },
-    iosSubmitBtn: {
+    submitBtn: {
         backgroundColor: purple,
         padding: 10,
         borderRadius: 7,

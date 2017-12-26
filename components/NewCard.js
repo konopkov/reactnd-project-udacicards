@@ -1,14 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {View, Text, TextInput, StyleSheet, Platform, TouchableOpacity} from 'react-native'
-import {white, purple} from '../utils/colors'
+import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert} from 'react-native'
+import {white, black} from '../utils/colors'
 import {addCardToDeck} from '../utils/storage'
+import {addCard} from '../actions'
 
 
 const SubmitBtn = ({onPress}) => {
     return (
         <TouchableOpacity
-            style={Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn}
+            style={styles.submitBtn}
             onPress={onPress}>
             <Text style={[styles.submitBtnText]}>SUBMIT</Text>
         </TouchableOpacity>
@@ -22,27 +23,45 @@ class NewDeck extends Component {
         answer: ''
     };
 
-    render() {
+    handleSubmit = () => {
+        const {question, answer} = this.state;
+        const card = {question, answer};
+        const {dispatch} = this.props;
+        const {deckId} = this.props.navigation.state.params;
 
-        const {entryId} = this.props.navigation.state.params;
+        if (!question) {
+            return Alert.alert('Blank entry', 'Please enter card question.')
+        }
+        if (!answer) {
+            return Alert.alert('Blank entry', 'Please enter card answer.')
+        }
+
+        dispatch(addCard(deckId, card));
+        addCardToDeck(deckId, card);
+
+        this.setState({
+            question: '',
+            answer: ''
+        });
+    };
+
+    render() {
 
         return (
             <View>
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={styles.input}
                     onChangeText={(question) => this.setState({question})}
-                    value={this.state.currentQuestion}
+                    value={this.state.question}
                 />
 
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+                    style={styles.input}
                     onChangeText={(answer) => this.setState({answer})}
                     value={this.state.answer}
                 />
                 <SubmitBtn
-                    onPress={() => {
-                        addCardToDeck(entryId, {question: this.state.currentQuestion, answer: this.state.answer})
-                    }}
+                    onPress={this.handleSubmit}
                 />
             </View>
 
@@ -53,29 +72,24 @@ class NewDeck extends Component {
 export default connect()(NewDeck)
 
 const styles = StyleSheet.create({
+    input: {
+        height: 40,
+        borderWidth: 1,
+        margin: 20,
+        borderRadius: 5
+    },
     container: {
         flex: 1,
         padding: 20,
         backgroundColor: white
     },
-    iosSubmitBtn: {
-        backgroundColor: purple,
+    submitBtn: {
+        backgroundColor: black,
         padding: 10,
         borderRadius: 7,
         height: 45,
-        marginLeft: 40,
-        marginRight: 40
-    },
-    androidSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        borderRadius: 2,
-        height: 45,
-        marginLeft: 30,
-        marginRight: 30,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginLeft: 100,
+        marginRight: 100
     },
     submitBtnText: {
         color: white,
@@ -83,7 +97,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     text: {
-        color: purple,
+        color: black,
         fontSize: 56,
         textAlign: 'center',
     },
