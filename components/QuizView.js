@@ -28,7 +28,7 @@ class QuizView extends Component {
 
         this.setState((state) => ({
                 currentQuestion: state.currentQuestion + 1,
-                isQuestionDisplayed: !state.isQuestionDisplayed,
+                isQuestionDisplayed: true,
                 correctCount: isCorrect
                     ? state.correctCount + 1
                     : state.correctCount,
