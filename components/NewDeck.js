@@ -1,14 +1,15 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {View, Text, TextInput, StyleSheet, Platform, TouchableOpacity} from 'react-native'
-import {white, purple} from '../utils/colors'
+import {View, Text, TextInput, StyleSheet, TouchableOpacity, Alert} from 'react-native'
+import {white, black} from '../utils/colors'
 import {saveDeckTitle} from '../utils/storage'
+import {addDeck} from "../actions";
 
 
 const SubmitBtn = ({onPress}) => {
     return (
         <TouchableOpacity
-            style={Platform.OS === 'ios' ? styles.submitBtn : styles.androidSubmitBtn}
+            style={styles.submitBtn}
             onPress={onPress}>
             <Text style={[styles.submitBtnText]}>SUBMIT</Text>
         </TouchableOpacity>
@@ -18,7 +19,23 @@ const SubmitBtn = ({onPress}) => {
 class NewDeck extends Component {
 
     state = {
-        text: ''
+        deckTitle: ''
+    };
+
+    handleSubmit = () => {
+        const {deckTitle} = this.state;
+        const {dispatch} = this.props;
+
+        if (!deckTitle) {
+            return Alert.alert('Blank entry', 'Please enter deck title.')
+        }
+
+        dispatch(addDeck(deckTitle));
+        saveDeckTitle(deckTitle);
+
+        this.setState({
+            deckTitle: ''
+        });
     };
 
     render() {
@@ -27,14 +44,12 @@ class NewDeck extends Component {
                 <Text style={styles.text}>What is the title of your new deck?</Text>
 
                 <TextInput
-                    style={{height: 40, borderColor: 'gray', borderWidth: 1}}
-                    onChangeText={(text) => this.setState({text})}
-                    value={this.state.text}
+                    style={styles.input}
+                    onChangeText={(deckTitle) => this.setState({deckTitle})}
+                    value={this.state.deckTitle}
                 />
                 <SubmitBtn
-                    onPress={() => {
-                        saveDeckTitle(this.state.text)
-                    }}
+                    onPress={this.handleSubmit}
                 />
             </View>
 
@@ -45,29 +60,24 @@ class NewDeck extends Component {
 export default connect()(NewDeck)
 
 const styles = StyleSheet.create({
+    input: {
+        height: 40,
+        borderWidth: 1,
+        margin: 20,
+        borderRadius: 5
+    },
     container: {
         flex: 1,
         padding: 20,
         backgroundColor: white
     },
     submitBtn: {
-        backgroundColor: purple,
+        backgroundColor: black,
         padding: 10,
         borderRadius: 7,
         height: 45,
-        marginLeft: 40,
-        marginRight: 40
-    },
-    androidSubmitBtn: {
-        backgroundColor: purple,
-        padding: 10,
-        borderRadius: 2,
-        height: 45,
-        marginLeft: 30,
-        marginRight: 30,
-        alignSelf: 'flex-end',
-        justifyContent: 'center',
-        alignItems: 'center'
+        marginLeft: 100,
+        marginRight: 100
     },
     submitBtnText: {
         color: white,
@@ -75,7 +85,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     text: {
-        color: purple,
+        color: black,
         fontSize: 56,
         textAlign: 'center',
     },
