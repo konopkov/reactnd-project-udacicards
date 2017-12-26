@@ -1,6 +1,6 @@
 import React from 'react';
 import {StackNavigator, TabNavigator} from 'react-navigation'
-import {View, Platform, StatusBar} from 'react-native'
+import {View, StatusBar} from 'react-native'
 import {Constants} from 'expo'
 import {createStore} from 'redux'
 import DeckListView from './components/DeckListView'
@@ -10,7 +10,7 @@ import DeckView from './components/DeckView'
 import QuizView from './components/QuizView'
 import {Provider} from 'react-redux'
 import reducer from './reducers'
-import {white, purple} from './utils/colors'
+import {white, black} from './utils/colors'
 import {FontAwesome, Ionicons, Entypo} from '@expo/vector-icons'
 
 
@@ -43,10 +43,10 @@ const Tabs = TabNavigator({
         header: null
     },
     tabBarOptions: {
-        activeTintColor: Platform.OS === 'ios' ? purple : white,
+        activeTintColor: white,
         style: {
             height: 56,
-            backgroundColor: Platform.OS === 'ios' ? white : purple,
+            backgroundColor: black,
             shadowRadius: 6,
             shadowOpacity: 1,
             shadowColor: 'rgba(0,0,0,0.24)',
@@ -66,18 +66,18 @@ const MainNavigator = StackNavigator({
     DeckView: {
         screen: DeckView,
         navigationOptions: {
-            headerTintColor: 'white',
+            headerTintColor: white,
             headerStyle: {
-                backgroundColor: 'purple'
+                backgroundColor: black
             }
         }
     },
     NewCard: {
         screen: NewCard,
         navigationOptions: {
-            headerTintColor: 'white',
+            headerTintColor: white,
             headerStyle: {
-                backgroundColor: 'purple'
+                backgroundColor: black
             }
         }
     },
@@ -85,9 +85,9 @@ const MainNavigator = StackNavigator({
         screen: QuizView,
         title: 'Quiz',
         navigationOptions: {
-            headerTintColor: 'white',
+            headerTintColor: white,
             headerStyle: {
-                backgroundColor: 'purple'
+                backgroundColor: black
             }
         }
     }
@@ -103,7 +103,7 @@ export default class App extends React.Component {
         return (
             <Provider store={createStore(reducer)}>
                 <View style={{flex: 1}}>
-                    <UdaciStatusBar backgroundColor={'purple'} barStyle='light-content'/>
+                    <UdaciStatusBar backgroundColor={black} barStyle='light-content'/>
                     <MainNavigator/>
                 </View>
             </Provider>
