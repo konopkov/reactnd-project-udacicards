@@ -99,10 +99,9 @@ class QuizView extends Component {
                     </View>
                     <TouchableOpacity
                         style={styles.backBtn}
-                        onPress={() => this.props.navigation.navigate(
-                            'Decks'
-                        )}>
-                        <Text style={styles.backBtnText}>Back to decks</Text>
+                        onPress={() => this.props.navigation.goBack()}
+                    >
+                        <Text style={styles.backBtnText}>Back to deck</Text>
                     </TouchableOpacity>
                 </View>
 
